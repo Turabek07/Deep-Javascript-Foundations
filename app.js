@@ -201,3 +201,34 @@
     // 1:   == with 0 or "" (or even "  ")
     // 2. == with non-primitivies
     // 3. == true or == false: allow ToBoolean or use ===
+
+     
+
+
+                   // TYPESCRIPT AND FLOW //
+
+    // Benefits
+// Catch type-related mistakes
+// Communicate type intent 
+// Provide IDE feedback
+
+   // Caveats - Ogohlantirishlar
+
+// Inferencing is best-guess, not a guarantee
+// Annotations are optional 
+// Any part of application that is not typed introduces uncertanity 
+
+//let student: string = "Kyle"
+// let student: number = 14;
+
+
+   // Pros                                                        // Cons
+//They make types more  obvious in code                      |  They use "non-JS-standard" syntax (or code comments)
+//Familiarity: they look like other language's type systems  |  They require* a build process, which raises the barrier to entry
+//Extremely popular these days                               |  Their sophistication can be intimidating to those without prior formal types experience
+//They're very sophisticated and good at what they do        |  They focus more on "static types" (variables, parameters, returns, properties, etc) than value types
+//                                                           |  The only way to have confidence over the runtime behavior is to limit/eliminate dynamic typing
+
+
+
+

@@ -151,26 +151,26 @@
 
 
 
-                                 // EQUALITY //
-                            // == VS === //
-    // == allows coercion (types different) == COERCIVE EQUALITY
-    // === disallows coercion (types same) === NON-COERCIVE EQUALITY
+// EQUALITY //
+// == VS === //
+// == allows coercion (types different) == COERCIVE EQUALITY
+// === disallows coercion (types same) === NON-COERCIVE EQUALITY
 
 // let x = null;
 // let y = undefined;
 
 // console.log(x == y);
 
-    // == Summary
+// == Summary
 // If the types are same : ===
 // If null or undefined: equal
 // If non-primitives: ToPrimitive
 // Prefer: ToNumber
 
 
-   // Double Equals Corner cases
+// Double Equals Corner cases
 
-   // [] == ![]  > true ?!!!! wat!!
+// [] == ![]  > true ?!!!! wat!!
 
 //    var workStudents = []
 //    var workStudents1 = []
@@ -196,23 +196,23 @@
 // }
 
 
-    // how we can avoid corner cases with Double equals
-    // There is some tips you should AVOID
-    // 1:   == with 0 or "" (or even "  ")
-    // 2. == with non-primitivies
-    // 3. == true or == false: allow ToBoolean or use ===
-
-     
+// how we can avoid corner cases with Double equals
+// There is some tips you should AVOID
+// 1:   == with 0 or "" (or even "  ")
+// 2. == with non-primitivies
+// 3. == true or == false: allow ToBoolean or use ===
 
 
-                   // TYPESCRIPT AND FLOW //
 
-    // Benefits
+
+// TYPESCRIPT AND FLOW //
+
+// Benefits
 // Catch type-related mistakes
 // Communicate type intent 
 // Provide IDE feedback
 
-   // Caveats - Ogohlantirishlar
+// Caveats - Ogohlantirishlar
 
 // Inferencing is best-guess, not a guarantee
 // Annotations are optional 
@@ -222,7 +222,7 @@
 // let student: number = 14;
 
 
-   // Pros                                                        // Cons
+// Pros                                                        // Cons
 //They make types more  obvious in code                      |  They use "non-JS-standard" syntax (or code comments)
 //Familiarity: they look like other language's type systems  |  They require* a build process, which raises the barrier to entry
 //Extremely popular these days                               |  Their sophistication can be intimidating to those without prior formal types experience
@@ -232,4 +232,203 @@
 
 
 
-               // SCOPE //
+// SCOPE //
+
+function teacher() { }
+
+var myTeacher = function anotherTeacher() {
+    console.log(anotherTeacher)
+}
+
+console.log(teacher);
+console.log(myTeacher);
+console.log(anotherTeacher);//but there will be REFERENCE ERROR because anotherTeacher function is not in the "GLOBAL SCOPE"
+
+// NAMED FUNCTION EXPRESSSIONS //
+
+var clickhandler = function () { // <- anonymus Function expression
+
+}
+var keyhandler = function keyhandler() { // <- named Function expression
+
+}
+// NAMED FUNCTIONS BENEFITS:
+// 1.Reliable function self-refernce (recursion,etc)
+//2.More debuggable stack traces
+// 3.More self-documenting code
+
+//-----------------------------------------------------------------------------------------------------------------------------
+//ARROW FUNCTIONS //
+const numbers = [1, 2, 3, 4];
+
+// Using traditional function as a callback
+const squaredNumbers = numbers.map(function (num) {
+    return num * num;
+});
+
+// Using arrow function as a callback
+const squaredNumbersArrow = numbers.map((num) => num * num);
+
+console.log(squaredNumbers);
+console.log(squaredNumbersArrow);
+
+
+// Traditional Function
+function sumArray(numbers) {
+    let sum = 0;
+    for (const num of numbers) {
+        sum += num;
+    }
+    return sum;
+}
+
+
+// Arrow Function with Block Statement
+const sumArrayArrow = (numbers) => {
+    let sum = 0;
+    for (const num of numbers) {
+        sum += num;
+    }
+    return sum;
+};
+
+console.log(sumArray([1, 2, 3, 4])); // Output: 10
+console.log(sumArrayArrow([1, 2, 3, 4])); // Output: 10
+
+
+// --------------------------------------------------------------------------------------------------------
+
+
+// (Named)declaration Function 
+//             >
+//    Named Function Expression         
+//             >
+//    Anonymus Function Expression  <-- this means:FUnction Declaration has some benefits over a Named Function Expression but Named Function expression has Huge benefits over a Anonymus Function expression
+
+
+// Function Declaration
+function addNumbers(a, b) {
+    return a + b;
+}
+
+// Calling the function
+const sum = addNumbers(5, 10);
+console.log(sum); // Output: 15
+
+//----------------------------------------------
+
+// Named Function Expression
+const multiplyNumbers = function multiply(a, b) {
+    return a * b;
+};
+
+// Calling the function
+const product = multiplyNumbers(3, 7);
+console.log(product); // Output: 21
+
+//----------------------------------------------
+
+// Anonymous Function Expression
+const divideNumbers = function (a, b) {
+    return a / b;
+};
+
+// Calling the function
+const result = divideNumbers(20, 5);
+console.log(result); // Output: 4
+
+
+// Some Solutions
+// Examples for Function Declaration //
+
+function getStudentById(studentId) {
+    return studentRecords.find(function matchId(record) {
+        return (record.id == studentId);
+    })
+}
+
+function printRecords(recordIds) {
+    var records = recordIds.map(getStudentById);
+    records.sort(function sortByNmaeAsc(record1, record2) {
+        if (record1.name < record2.name) {
+            return -1
+        }
+        else if (record1.name > record2.name) {
+            return 1
+        }
+        else {
+            return 0
+        }
+    })
+    records.forEach(function printRecord(record) {
+        console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Nor Paid"}`);
+    })
+}
+
+
+function paidStudentsEnrollement() {
+    var idsToEnroll = studentRecords.filter(function needsToEnroll(record) {
+        return (record.paid && !currentEnrollment.includes(record.id));
+    })
+        .map(function getStudentID(record) {
+            return record.id
+        })
+    return [...currentEnrollment, ...idsToEnroll];
+}
+
+function remindUnpaid(recordIds) {
+    var unPaidIds = recordIds.filter(function isunPaid(studentId) {
+        var record = getStudentById(studentId);
+        return !record.paid
+    })
+    printRecords(unPaidIds)
+}
+//---------------------
+
+// Examples to Arrow Function
+var getStudentById = studentId =>
+    studentRecords.find(
+        record => record.id == studentId
+    )
+
+    var printRecords = recordIds => 
+    recordIds.map(getStudentById)
+    .sort(
+        (record1,record2)=> (record1.name < record2.name) ? -1 : (record1.name > record2.name) ? 1 : 0
+    )
+    .forEach(
+        record => console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Nor Paid"}`)
+    )
+
+    var paidStudentEnroll = () => [
+        ...currentEnrollment,
+        ...(
+            studentRecords.filter(
+                record => (record.paid && !currentEnrollment.includes(record.id))
+            )
+            .map(record => record.id)
+        )
+    ];
+
+    var remindUnpaid = recordids => 
+    printRecords(
+        recordids.filter(
+            studentId => !getStudentById(studentId).paid
+        )
+    );
+
+var currentEnrollment = [410, 105, 664, 375];
+var studentRecords = [
+    { id: 313, name: "Frank", paid: true },
+    { id: 423, name: "Zuzy", paid: true },
+    { id: 123, name: "John", paid: false },
+    { id: 324, name: "Fry", paid: false },
+    { id: 387, name: "Karol", paid: false },
+    { id: 613, name: "Zuzu", paid: true },
+    { id: 393, name: "Jony", paid: true },
+    { id: 785, name: "Mac", paid: false },
+    { id: 643, name: "Jack", paid: false },
+    { id: 395, name: "Sui", paid: true },
+    { id: 163, name: "Seea", paid: true },
+    { id: 205, name: "Alan", paid: false },
+]

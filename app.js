@@ -391,26 +391,26 @@ var getStudentById = studentId =>
         record => record.id == studentId
     )
 
-    var printRecords = recordIds => 
+var printRecords = recordIds =>
     recordIds.map(getStudentById)
-    .sort(
-        (record1,record2)=> (record1.name < record2.name) ? -1 : (record1.name > record2.name) ? 1 : 0
-    )
-    .forEach(
-        record => console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Nor Paid"}`)
-    )
-
-    var paidStudentEnroll = () => [
-        ...currentEnrollment,
-        ...(
-            studentRecords.filter(
-                record => (record.paid && !currentEnrollment.includes(record.id))
-            )
-            .map(record => record.id)
+        .sort(
+            (record1, record2) => (record1.name < record2.name) ? -1 : (record1.name > record2.name) ? 1 : 0
         )
-    ];
+        .forEach(
+            record => console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Nor Paid"}`)
+        )
 
-    var remindUnpaid = recordids => 
+var paidStudentEnroll = () => [
+    ...currentEnrollment,
+    ...(
+        studentRecords.filter(
+            record => (record.paid && !currentEnrollment.includes(record.id))
+        )
+            .map(record => record.id)
+    )
+];
+
+var remindUnpaid = recordids =>
     printRecords(
         recordids.filter(
             studentId => !getStudentById(studentId).paid
@@ -432,3 +432,27 @@ var studentRecords = [
     { id: 163, name: "Seea", paid: true },
     { id: 205, name: "Alan", paid: false },
 ]
+
+// -----------------------------------------------------------------------------------------------------
+
+// LEXICAL SCOPE AND DYNAMIC SCOPE //
+
+function outer() {
+    const outerVariable = 'Outer';
+
+    function inner() {
+        const innerVariable = 'Inner';
+        console.log(innerVariable);  // Output: Inner
+        console.log(outerVariable);  // Output: Outer
+    }
+
+    inner();
+}
+
+outer();
+            //   In this example, the inner function has access to both innerVariable and outerVariable.
+            //   It can access innerVariable because it is declared within the same scope.
+            //   It can access outerVariable because it is declared in the outer scope(in the outer function), which is the lexical parent of the inner function.
+
+            //   Lexical scoping facilitates modular and maintainable code by providing clear boundaries for variable accessibility.
+            //   It allows for predictable variable resolution, as the scope of a variable can be determined by examining the code's structure without the need to track runtime context or execution flow. 

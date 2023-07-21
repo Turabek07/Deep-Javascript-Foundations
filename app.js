@@ -450,9 +450,68 @@ function outer() {
 }
 
 outer();
-            //   In this example, the inner function has access to both innerVariable and outerVariable.
-            //   It can access innerVariable because it is declared within the same scope.
-            //   It can access outerVariable because it is declared in the outer scope(in the outer function), which is the lexical parent of the inner function.
+//   In this example, the inner function has access to both innerVariable and outerVariable.
+//   It can access innerVariable because it is declared within the same scope.
+//   It can access outerVariable because it is declared in the outer scope(in the outer function), which is the lexical parent of the inner function.
 
-            //   Lexical scoping facilitates modular and maintainable code by providing clear boundaries for variable accessibility.
-            //   It allows for predictable variable resolution, as the scope of a variable can be determined by examining the code's structure without the need to track runtime context or execution flow. 
+//   Lexical scoping facilitates modular and maintainable code by providing clear boundaries for variable accessibility.
+//   It allows for predictable variable resolution, as the scope of a variable can be determined by examining the code's structure without the need to track runtime context or execution flow. 
+
+
+
+
+const globalVariable = 'Global';
+
+function outer() {
+    console.log(globalVariable);  // Output: Global
+}
+
+outer();
+// In this example, the outer function does not declare a variable called globalVariable. However, it can access the globalVariable
+//  defined outside the function because of lexical scope. The outer function "looks up" the variable in the surrounding scope, finding it in the global scope.
+
+
+// HOISTING //
+
+// 1.Variable Hoisting:
+// Variable declarations, using either var, let, or const, are hoisted to the top of their scope but are not initialized.
+//  If you try to access the variable before its declaration, it will exist but hold the value undefined.
+
+console.log(myVar); // Output: undefined
+var myVar = 42;
+console.log(myVar); // Output: 42
+
+// The variable myVar is hoisted, but its assignment (= 42) is not,
+//  so it is undefined until the assignment statement is reached during execution.
+
+
+//   2. Function Hoisting:
+// Function declarations are fully hoisted, including both the function name and its definition.
+//  This means you can call a function even before its actual declaration in the code.
+
+foo(); // Output: "Hello from foo!"
+
+function foo() {
+    console.log("Hello from foo!");
+}
+
+// The function foo is hoisted to the top of the scope, so it can be called anywhere within the same scope.
+
+
+
+// 3.Block Scopes and Hoisting:
+// Variables declared with let and const in block scopes (e.g., inside if statements or loops) are hoisted as well but remain in the 
+// "temporal dead zone" until their actual declaration. Trying to access them before the declaration results in a ReferenceError.
+
+
+if (true) {
+    console.log(myVar); // Output: ReferenceError: Cannot access 'myVar' before initialization
+    let myVar = 42;
+  }
+
+//   In this example, myVar is hoisted to the top of the block, 
+//   but it is in the temporal dead zone until the let myVar = 42; statement is encountered.
+
+// Hoisting is a language feature designed to provide flexibility in how code is written, 
+// but it's best practice to declare variables and functions before using them to avoid any confusion or unexpected behavior. Additionally, 
+// using let and const for variable declarations in block scopes can help prevent issues caused by hoisting in those cases.

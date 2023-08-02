@@ -507,7 +507,7 @@ function foo() {
 if (true) {
     console.log(myVar); // Output: ReferenceError: Cannot access 'myVar' before initialization
     let myVar = 42;
-  }
+}
 
 //   In this example, myVar is hoisted to the top of the block, 
 //   but it is in the temporal dead zone until the let myVar = 42; statement is encountered.
@@ -515,3 +515,43 @@ if (true) {
 // Hoisting is a language feature designed to provide flexibility in how code is written, 
 // but it's best practice to declare variables and functions before using them to avoid any confusion or unexpected behavior. Additionally, 
 // using let and const for variable declarations in block scopes can help prevent issues caused by hoisting in those cases.
+
+// Var Hoisting
+
+// In JavaScript, variables declared with var are hoisted to the top of their scope, but only the declaration is hoisted, not the initialization. 
+// This means that the variable is recognized throughout its scope, but its value will be undefined until it is assigned a value in the code.
+
+
+console.log(x); // Output: undefined
+var x = 10;
+console.log(x); // Output: 10
+
+// **********
+var x; // Declaration is hoisted
+console.log(x); // Output: undefined
+x = 10; // Initialization remains in place
+console.log(x); // Output: 10
+
+
+// Let and Const Hoisting
+
+// Variables declared with let and const also hoist, but they have a slightly different behavior compared to var.
+// Hoisting with let and const works the same way, but they are not initialized with undefined. Instead
+// they enter into the "temporal dead zone," where you cannot access them before they are declared in the code.
+// Attempting to access them before the declaration will result in a ReferenceError.
+
+console.log(y); // Throws ReferenceError: Cannot access 'y' before initialization
+let y = 20;
+console.log(y); // Output: 20
+
+
+let a; // Declaration is hoisted, but not initialized
+console.log(a); // Throws ReferenceError: Cannot access 'y' before initialization
+a = 20; // Initialization remains in place
+console.log(a); // Output: 20
+
+
+
+// To summarize, both var, let, and const are hoisted, but var is initialized with undefined and accessible before its declaration,
+// while let and const enter the temporal dead zone and cannot be accessed before they are declared.
+//  It is considered good practice to declare variables at the beginning of their scope to avoid confusion and potential issues with hoisting

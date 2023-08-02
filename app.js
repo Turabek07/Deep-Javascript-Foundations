@@ -555,3 +555,50 @@ console.log(a); // Output: 20
 // To summarize, both var, let, and const are hoisted, but var is initialized with undefined and accessible before its declaration,
 // while let and const enter the temporal dead zone and cannot be accessed before they are declared.
 //  It is considered good practice to declare variables at the beginning of their scope to avoid confusion and potential issues with hoisting
+
+// Closure
+
+// Closure is a fundamental concept in JavaScript, and it occurs when a function "remembers" its lexical scope even when it is executed outside of that scope.
+// In other words, a closure allows a function to access and use variables from its outer(enclosing) scope,
+// even after that outer function has finished executing.
+
+function outerFunction() {
+    const outerVariable = 'I am from the outer function!';
+
+    function innerFunction() {
+        console.log(outerVariable); // innerFunction can access outerVariable
+    }
+
+    return innerFunction;
+}
+
+const closureFunction = outerFunction();
+closureFunction(); //  "I am from the outer function!"
+
+
+// In this example, innerFunction is declared inside outerFunction.When outerFunction is called and then returns innerFunction,
+//     the closureFunction variable is assigned to innerFunction. 
+// Even after outerFunction has finished executing,
+//     closureFunction can still access the outerVariable because it forms a closure over the scope of outerFunction.
+
+ //Closure with Arguments
+function greeting(name) {
+    return function(message) {
+      console.log(`${message}, ${name}!`);
+    };
+  }
+  
+  const greetJohn = greeting('John');
+  const greetAlice = greeting('Alice');
+  
+  greetJohn('Hello'); //  "Hello, John!"
+  greetAlice('Hi');   // "Hi, Alice!"
+  
+//   In this example, the greeting function returns another function that captures the name argument from its outer scope.
+//    When greetJohn and greetAlice are called, they remember the value of name that was passed when the outer function was called,
+//     allowing them to greet different people with the appropriate name.
+
+// Closures are useful for creating private variables and encapsulating functionality. 
+// They enable powerful and flexible patterns in JavaScript programming. 
+// However, it's essential to be mindful of potential memory leaks when using closures,
+// as they can hold references to variables in their outer scope, preventing them from being garbage collected.

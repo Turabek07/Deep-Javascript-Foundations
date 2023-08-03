@@ -581,19 +581,19 @@ closureFunction(); //  "I am from the outer function!"
 // Even after outerFunction has finished executing,
 //     closureFunction can still access the outerVariable because it forms a closure over the scope of outerFunction.
 
- //Closure with Arguments
+//Closure with Arguments
 function greeting(name) {
-    return function(message) {
-      console.log(`${message}, ${name}!`);
+    return function (message) {
+        console.log(`${message}, ${name}!`);
     };
-  }
-  
-  const greetJohn = greeting('John');
-  const greetAlice = greeting('Alice');
-  
-  greetJohn('Hello'); //  "Hello, John!"
-  greetAlice('Hi');   // "Hi, Alice!"
-  
+}
+
+const greetJohn = greeting('John');
+const greetAlice = greeting('Alice');
+
+greetJohn('Hello'); //  "Hello, John!"
+greetAlice('Hi');   // "Hi, Alice!"
+
 //   In this example, the greeting function returns another function that captures the name argument from its outer scope.
 //    When greetJohn and greetAlice are called, they remember the value of name that was passed when the outer function was called,
 //     allowing them to greet different people with the appropriate name.
@@ -602,3 +602,32 @@ function greeting(name) {
 // They enable powerful and flexible patterns in JavaScript programming. 
 // However, it's essential to be mindful of potential memory leaks when using closures,
 // as they can hold references to variables in their outer scope, preventing them from being garbage collected.
+
+
+// OBJECTS (ORIENTED)//
+
+//this
+//class
+//Prototypes
+//"Inheritance" and "Behaviour Delegation"
+//(OO vs OLOO)
+
+//this keyword
+function ask(question) {
+    console.log(this.teacher, question);
+}
+
+var workshop = {
+    teacher: "Kyle",
+}
+var workshop1 = {
+    teacher: "Suzy",
+};
+
+workshop.ask("How do i share a method");
+workshop1.ask("How do i share a method");
+ask.call(workshop, "Can i explicitly set context ?");
+ask.call(workshop1, "Can i explicitly set context ?");
+
+
+

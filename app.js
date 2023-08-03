@@ -630,4 +630,24 @@ ask.call(workshop, "Can i explicitly set context ?");
 ask.call(workshop1, "Can i explicitly set context ?");
 
 
+// class{}
+
+//class keyword is used to define a blueprint for creating objects with similar properties and behaviors. 
+//It provides a way to create constructor functions and their associated methods in a more structured and organized manner.
+
+class Workshop {
+    constructor(teacher) {
+        this.teacher = teacher;
+    }
+    ask(question) {
+        console.log(this.teacher, question);
+    }
+}
+
+var deepjs = new Workshop("Tim");
+var reactjs = new Workshop("Jimali");
+deepjs.ask("is this class ? ");
+reactjs.ask("is that a okay to class ?");
+
+
 

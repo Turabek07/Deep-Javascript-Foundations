@@ -649,5 +649,18 @@ var reactjs = new Workshop("Jimali");
 deepjs.ask("is this class ? ");
 reactjs.ask("is that a okay to class ?");
 
+class Person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    sayHello() {
+        console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+    }
+}
+
+const john = new Person('John', 30);
+john.sayHello(); // Output: "Hello, my name is John and I am 30 years old."
 
 

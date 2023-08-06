@@ -661,6 +661,79 @@ class Person {
 }
 
 const john = new Person('John', 30);
-john.sayHello(); // Output: "Hello, my name is John and I am 30 years old."
+john.sayHello(); //  "Hello, my name is John and I am 30 years old."
 
 
+
+// PROTOTYPES 
+
+
+// the prototype is an important concept related to object-oriented programming and is used to add properties and methods to objects. Every object in JavaScript has a prototype property that points to its prototype object.
+
+// The prototype object serves as a blueprint or a template for other objects. When you access a property or method on an object, and that property or method does not exist directly on the object itself, JavaScript looks for it in the object's prototype. This chain of objects linked through the prototype property is called the prototype chain.
+
+// Here's a simplified explanation of prototypes:
+
+// Each object in JavaScript has a hidden prototype property that points to another object (the prototype object).
+// When you access a property or method on an object, JavaScript first checks if the property/method exists directly on the object. If not, it looks for it in the object's prototype.
+// If the property/method is still not found in the prototype, JavaScript continues searching up the prototype chain until it reaches the root object (Object.prototype), which is the last link in the chain.
+
+// Create a person object using object literal
+const person = {
+    name: 'John',
+    sayHello() {
+        console.log(`Hello, my name is ${this.name}.`);
+    }
+};
+
+// Create a student object with the person object as its prototype
+const student = Object.create(person);
+student.major = 'Computer Science';
+
+student.sayHello(); // Output: "Hello, my name is John."
+console.log(student.major); // Output: "Computer Science"
+
+//   we create a person object with a name property and a sayHello method. Then, we create a student object using Object.create(person).
+//   This links the person object as the prototype of the student object. As a result, the student object inherits the properties and methods from the person object, forming a prototype chain.
+
+// The concept of prototypes is fundamental to how JavaScript implements inheritance and allows for a more efficient use of memory and code reusability.
+// It is also the basis for how classes and constructor functions work in JavaScript under the hood.
+
+   
+
+// OLOO - OBJECT LINKED TO OTHER OBJECT
+
+
+//    OLOO stands for "Objects Linked to Other Objects," and it is a design pattern in JavaScript that emphasizes delegation and behavior delegation over classical inheritance (like classes and prototypes).
+
+//    OLOO is an alternative to the traditional class-based inheritance model found in many programming languages, including JavaScript (using prototypes).
+//     Instead of using classes and constructors to create objects with inheritance hierarchies, OLOO focuses on creating objects that directly delegate to other objects, forming a chain of delegation.
+   
+//    The basic idea behind OLOO is to use simple factory functions or object literals to create objects that share common behaviors through delegation,
+//     rather than through a complex prototype chain.
+
+// Factory function to create a person object
+function createPerson(name) {
+    return {
+      name,
+      sayHello() {
+        console.log(`Hello, my name is ${this.name}.`);
+      }
+    };
+  }
+  
+  // Create a student object linked to a person object using Object.create
+  const person = createPerson('John');
+  const student = Object.create(person);
+  student.major = 'Computer Science';
+  
+  student.sayHello(); // "Hello, my name is John."
+  console.log(student.major); // "Computer Science"
+
+// we use the createPerson factory function to create a person object with a sayHello method. Then, we create a student object using Object.create(person). The student object directly delegates to the person object,
+// allowing it to inherit the sayHello method. This approach avoids the complexity of dealing with constructor functions and prototypes, making the code simpler and easier to understand.
+
+// OLOO promotes the principle of "behavior delegation" rather than "class-based inheritance," 
+// making it a more flexible and straightforward way to compose objects and share behaviors in JavaScript. 
+// It is especially popular in the context of modern JavaScript development, where the emphasis is on simplicity, modularity, and code reusability.
+  
